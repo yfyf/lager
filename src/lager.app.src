@@ -10,6 +10,7 @@
                   stdlib
                  ]},
   {registered, [lager_sup, lager_event, lager_crash_log, lager_handler_watcher_sup]},
+  {included_applications, [syntax_tools, goldrush]},
   {mod, {lager_app, []}},
   {env, [
             %% What handlers to install with what arguments
@@ -48,6 +49,10 @@
             %% current one - default is 0
             {crash_log_count, 5},
             %% Whether to redirect error_logger messages into lager - defaults to true
-            {error_logger_redirect, true}
+            {error_logger_redirect, true},
+            %% How many messages per second to allow from error_logger before we start dropping them
+            {error_logger_hwm, 50},
+            %% How big the gen_event mailbox can get before it is switched into sync mode
+            {async_threshold, 20}
         ]}
  ]}.
