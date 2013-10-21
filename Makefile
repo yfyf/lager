@@ -1,27 +1,29 @@
 .PHONY: rel stagedevrel deps test
 
+rebar = rebar
+
 all: deps compile
 
 compile: deps
-	./rebar compile
+	$(rebar) compile
 
 deps:
-	test -d deps || ./rebar get-deps
+	test -d deps || $(rebar) get-deps
 
 clean:
-	./rebar clean
+	$(rebar) clean
 
 distclean: clean
-	./rebar delete-deps
+	$(rebar) delete-deps
 
 test:
-	./rebar compile eunit
+	$(rebar) compile eunit
 
 ##
 ## Doc targets
 ##
 docs:
-	./rebar doc
+	$(rebar) doc
 
 APPS = kernel stdlib sasl erts ssl tools os_mon runtime_tools crypto inets \
 	xmerl webtool snmp public_key mnesia eunit

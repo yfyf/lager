@@ -121,6 +121,9 @@ expand_handlers([{lager_file_backend, Configs}|T]) ->
       expand_handlers(T);
 expand_handlers([{Mod, Config}|T]) when is_atom(Mod) ->
     [maybe_make_handler_id(Mod, Config) | expand_handlers(T)];
+expand_handlers([{{lager_syslog_backend, Id}, Config}|T]) ->
+    NewConfig = lager_syslog_backend:ensure_new_config_format(Config),
+    [maybe_make_handler_id(lager_syslog_backend, [{handler_id, Id}|NewConfig]) | expand_handlers(T)];
 expand_handlers([H|T]) ->
     [H | expand_handlers(T)].
 
