@@ -107,6 +107,7 @@ start(_StartType, _StartArgs) ->
 
 stop(Handlers) ->
     lists:foreach(fun(Handler) ->
+          erlang:display({adding_handler, Handler}),
           error_logger:add_report_handler(Handler)
       end, Handlers).
 

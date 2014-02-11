@@ -132,6 +132,7 @@ discard_messages(Second, Count) ->
         {M, S, _} ->
             receive
                 _Msg ->
+                    erlang:display({discard, _Msg}),
                     discard_messages(Second, Count+1)
             after 0 ->
                     Count
